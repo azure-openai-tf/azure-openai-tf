@@ -85,8 +85,10 @@ def content_file(path):
 def ask():
     ensure_openai_token()
     approach = request.json["approach"]
+    print(approach)
     try:
         impl = ask_approaches.get(approach)
+        print(impl)
         if not impl:
             return jsonify({"error": "unknown approach"}), 400
         r = impl.run(request.json["question"], request.json.get("overrides") or {})

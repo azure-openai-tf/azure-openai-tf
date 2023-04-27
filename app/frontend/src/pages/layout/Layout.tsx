@@ -10,7 +10,7 @@ const Layout = () => {
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     <Link to="/" className={styles.headerTitleContainer}>
-                        <h3 className={styles.headerTitle}>GPT + Enterprise data | Sample</h3>
+                        <h3 className={styles.headerTitle}>Megazone CLoud Microsoft Technology Center | Sample</h3>
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
@@ -25,7 +25,17 @@ const Layout = () => {
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>
-                                <a href="https://aka.ms/entgptsearch" target={"_blank"} title="Github repository link">
+                                <a href="https://www.megazone.com/" target={"_blank"} title="Megazone Cloud link">
+                                    <img
+                                        src="https://imgnew.megazone.com/2019/07/1202903_20190708091042_013_0001.jpg"
+                                        alt="Megazone CLoud logo"
+                                        aria-label="Link to Megazone CLoud"
+                                        width="20px"
+                                        height="20px"
+                                        className={styles.megazoneCloudLogo}
+                                    />
+                                </a>
+                                {/* <a href="https://aka.ms/entgptsearch" target={"_blank"} title="Github repository link">
                                     <img
                                         src={github}
                                         alt="Github logo"
@@ -34,7 +44,7 @@ const Layout = () => {
                                         height="20px"
                                         className={styles.githubLogo}
                                     />
-                                </a>
+                                </a> */}
                             </li>
                         </ul>
                     </nav>
