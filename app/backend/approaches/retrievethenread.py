@@ -74,7 +74,6 @@ Answer:
         else:
             r = self.search_client.search(q, filter=filter, top=top)
         if use_semantic_captions:
-            print("너스킵이구나?")
             print([doc[self.sourcepage_field] + ": " + nonewlines(" . ".join([c.text for c in doc["@search.captions"]])) for doc in r])
             results = [doc[self.sourcepage_field] + ": " + nonewlines(" . ".join([c.text for c in doc["@search.captions"]])) for doc in r]
         else:
