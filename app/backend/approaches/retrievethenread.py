@@ -55,11 +55,15 @@ Answer:
         )
 
     def run(self, q: str, overrides: dict) -> any:
-        use_semantic_captions = True if overrides.get("semantic_captions") else False
+        # default False
+        use_semantic_captions = False if overrides.get("semantic_captions") else True
+        # Cognitive Search Result 결과 개수 Default - 3
         top = overrides.get("top") or 3
+        # 제외 카테고리 설정 Default - None
         exclude_category = overrides.get("exclude_category") or None
         filter = "category ne '{}'".format(exclude_category.replace("'", "''")) if exclude_category else None
 
+        # Cognitive Search 실행
         if overrides.get("semantic_ranker"):
             r = self.search_client.search(
                 q,
@@ -79,14 +83,17 @@ Answer:
         else:
             results = [doc[self.sourcepage_field] + ": " + nonewlines(doc[self.content_field]) for doc in r]
         print(results)
+        # 결과 값 파싱하여 Prompt에 넣기
+        # 해당 부분이 너무 길어져서 토큰 Limit Error가 발생하여 일시적으로 1000글자로 제한
         content = "\n".join(results)[0:1000]
-
         prompt = (overrides.get("prompt_template") or self.template).format(q=q, retrieved=content)
 
+        # GPT 질의
         completion = openai.Completion.create(
             engine=self.openai_deployment, prompt=prompt, temperature=overrides.get("temperature") or 0.3, max_tokens=1024, n=1, stop=["\n"]
         )
 
+        # Front Return
         return {
             "data_points": results,
             "answer": completion.choices[0].text,
